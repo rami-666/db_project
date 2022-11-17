@@ -1,3 +1,104 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+
+class Playoff(models.Model):
+    season = models.IntegerField(unique=True)
+
+    def __str__(self):
+        return  str(self.season)
+
+class Conference(models.Model):
+    name = models.CharField(max_length=100)
+    hasPlayoffs = models.ForeignKey(Playoff, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.name + ": " + str(self.hasPlayoffs)
+
+
+class Series(models.Model):
+    round = models.IntegerField()
+    forPlayoffs = models.ForeignKey(Playoff, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return "Round: " + str(self.round) + " Playoffs: " + str(self.forPlayoffs)
+
+
+class Division(models.Model):
+    forConference = models.ForeignKey(Conference, on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name + " for Conference: " + str(self.forConference)
+
+class Stadium(models.Model):
+    location = models.CharField(max_length=300)
+    name = models.CharField(max_length=300)
+    capacity = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+class Team(models.Model):
+    inDivision = models.ForeignKey(Division, on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=30)
+    titlesWon = models.IntegerField()
+    gamesWon = models.IntegerField()
+    gamesLost = models.IntegerField()
+    dateFounded = models.DateField()
+    fans = models.IntegerField()
+    sponsors = models.IntegerField()
+    logo  = models.CharField(max_length=1000)
+    hasStadium = models.ForeignKey(Stadium, on_delete= models.DO_NOTHING)
+    #missing coach foreighn key
+
+    def __str__(self):
+        return self.name
+
+class Player(models.Model):
+    inTeam = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    fullName = models.CharField(max_length=100)
+    position = models.CharField(max_length=10)
+    age = models.IntegerField()
+    nationality = models.CharField(max_length=50)
+    university = models.CharField(max_length=100)
+    height = models.IntegerField()
+    weight = models.IntegerField()
+    agent = models.CharField(max_length=100)
+    pointsScored = models.IntegerField()
+    rebounds = models.IntegerField()
+    steals = models.IntegerField()
+    turnovers = models.IntegerField()
+
+    def __str__(self):
+        return self.fullName
+
+
+class Game(models.Model):
+    date = models.DateField()
+    winner = models.ForeignKey(Team, on_delete=models.DO_NOTHING, related_name="winner") #check if necessary to have foreign key
+    mvp = models.ForeignKey(Player, on_delete=models.DO_NOTHING)
+    inSeries = models.ForeignKey(Series, on_delete=models.DO_NOTHING)
+    gameNumber = models.IntegerField()
+    highlights = models.CharField(max_length=1000)
+    home = models.ForeignKey(Team, on_delete=models.DO_NOTHING, related_name="home")
+    away = models.ForeignKey(Team, models.DO_NOTHING, related_name="away")
+    homeScore = models.IntegerField()
+    homeRebounds = models.IntegerField()
+    homeSteals = models.IntegerField()
+    homeTurnovers = models.IntegerField()
+    homeTimeouts = models.IntegerField()
+    homeFouls = models.IntegerField()
+    homeShotAttempts = models.IntegerField()
+    awayScore = models.IntegerField()
+    awayRebounds = models.IntegerField()
+    awaySteals = models.IntegerField()
+    awayTurnovers = models.IntegerField()
+    awayTimeouts = models.IntegerField()
+    awayFouls = models.IntegerField()
+    awayShotAttempts = models.IntegerField()
+
+    def __str__(self):
+        return str(self.home) + " vs. " + str(self.away)
