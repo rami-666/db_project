@@ -18,7 +18,7 @@ To deploy this project run
 
 if you are on windows try:
 ```bash
-    source env/Scripts/activate
+   source env/Scripts/activate
 ```
 
 ```bash
