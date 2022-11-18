@@ -9,7 +9,10 @@ Coach,
 Team, 
 Player,
 Game,
-Game_Player
+Game_Player,
+Scout,
+Referee,
+Game_Referee
 ) 
 
 # Register your models here.
@@ -23,3 +26,6 @@ admin.site.register(Team)
 admin.site.register(Player)
 admin.site.register(Game)
 admin.site.register(Game_Player)
+admin.site.register(Scout)
+admin.site.register(Referee)
+admin.site.register(Game_Referee)

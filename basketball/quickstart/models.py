@@ -131,4 +131,28 @@ class Game_Player(models.Model):
         return str(self.game) + " - " + str(self.player)
 
 
+class Scout(models.Model):
+    name = models.CharField(max_length=100)
+    university = models.CharField(max_length=100)
+    forTeam = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.name
+
+
+class Referee(models.Model):
+    name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Game_Referee(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.DO_NOTHING)
+    referee = models.ForeignKey(Referee, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.game) + " : " + str(self.referee)
+
+
     

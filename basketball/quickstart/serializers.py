@@ -11,6 +11,9 @@ Team,
 Player, 
 Game,
 Game_Player,
+Scout,
+Referee,
+Game_Referee
 )  #add models here 
 
 
@@ -68,4 +71,19 @@ class Game_PlayerSerializer(serializers.ModelSerializer):
         fields = ["game", "player", "score", "rebounds", "steals", "turnovers", "fouls", "shotAttempts"]
 
 
+class ScoutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Scout
+        fields = ["name", "university", "forTeam"]
 
+
+class RefereeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Referee
+        fields = ["name", "position"]
+
+
+class Game_RefereeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game_Referee
+        fields = ["game", "referee"]

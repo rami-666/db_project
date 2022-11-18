@@ -15,6 +15,9 @@ Team,
 Player,
 Game,
 Game_Player,
+Scout,
+Referee,
+Game_Referee
 )  
 from .serializers import (      #add  seiralizers here
 PlayoffSerializer, 
@@ -27,6 +30,9 @@ TeamSerializer,
 PlayerSerializer,
 GameSerializer,
 Game_PlayerSerializer,
+ScoutSerializer,
+RefereeSerializer,
+Game_RefereeSerializer
 )  
 
 
@@ -590,6 +596,159 @@ class Game_PlayerApiView(APIView):
             
         }
         serializer = Game_PlayerSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ScoutApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+        # print(request.META)
+
+        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
+        #     playoffs = Playoff.objects.all()
+        # else:
+        #     year = request.META.get("HTTP_YEAR")
+        #     month = request.META.get("HTTP_MONTH")
+        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
+
+        scout = Scout.objects.all()
+
+        serializer = ScoutSerializer(scout, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+        # response["Access-Control-Allow-Origin"] = "*"
+        # response["Access-Control-Allow-Methods"] = "GET, POST"
+        # response["Access-Control-Max-Age"] = "1000"
+        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
+
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'name': request.data.get('name'),
+            'university': request.data.get('university'),
+            'forTeam': request.data.get('forTeam'),
+        }
+        serializer = ScoutSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RefereeApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+        # print(request.META)
+
+        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
+        #     playoffs = Playoff.objects.all()
+        # else:
+        #     year = request.META.get("HTTP_YEAR")
+        #     month = request.META.get("HTTP_MONTH")
+        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
+
+        referee = Referee.objects.all()
+
+        serializer = RefereeSerializer(referee, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+        # response["Access-Control-Allow-Origin"] = "*"
+        # response["Access-Control-Allow-Methods"] = "GET, POST"
+        # response["Access-Control-Max-Age"] = "1000"
+        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
+
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'name': request.data.get('name'),
+            'position': request.data.get('position'),
+        }
+        serializer = RefereeSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Game_RefereeApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+        # print(request.META)
+
+        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
+        #     playoffs = Playoff.objects.all()
+        # else:
+        #     year = request.META.get("HTTP_YEAR")
+        #     month = request.META.get("HTTP_MONTH")
+        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
+
+        game_referee = Game_Referee.objects.all()
+
+        serializer = Game_RefereeSerializer(game_referee, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+        # response["Access-Control-Allow-Origin"] = "*"
+        # response["Access-Control-Allow-Methods"] = "GET, POST"
+        # response["Access-Control-Max-Age"] = "1000"
+        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
+
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'game': request.data.get('game'),
+            'referee': request.data.get('referee'),
+        }
+        serializer = Game_RefereeSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -10,7 +10,10 @@ CoachApiView,
 TeamApiView,
 PlayerApiView,
 GameApiView,
-Game_PlayerApiView
+Game_PlayerApiView,
+ScoutApiView,
+RefereeApiView,
+Game_RefereeApiView
 )
 
 urlpatterns = [
@@ -24,4 +27,6 @@ urlpatterns = [
     path('player', PlayerApiView.as_view()),
     path('game', GameApiView.as_view()),
     path('game-player', Game_PlayerApiView.as_view()),
+    path('referee', RefereeApiView.as_view()),
+    path('game-referee', Game_RefereeApiView.as_view()),
 ]
