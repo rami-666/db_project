@@ -41,6 +41,17 @@ class Stadium(models.Model):
     def __str__(self):
         return self.name
 
+class Coach(models.Model):
+    name = models.CharField(max_length=300)
+    position = models.CharField(max_length=10)
+    age = models.IntegerField()
+    yearsOfCoaching = models.IntegerField()
+    university = models.CharField(max_length=200)
+    nationality = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
 class Team(models.Model):
     inDivision = models.ForeignKey(Division, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=30)
@@ -52,7 +63,9 @@ class Team(models.Model):
     sponsors = models.IntegerField()
     logo  = models.CharField(max_length=1000)
     hasStadium = models.ForeignKey(Stadium, on_delete= models.DO_NOTHING)
-    #missing coach foreighn key
+    coach = models.ForeignKey(Coach, on_delete= models.DO_NOTHING, null=True)
+
+    
 
     def __str__(self):
         return self.name
@@ -102,3 +115,20 @@ class Game(models.Model):
 
     def __str__(self):
         return str(self.home) + " vs. " + str(self.away)
+
+
+class Game_Player(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.DO_NOTHING)
+    player = models.ForeignKey(Player, on_delete=models.DO_NOTHING)
+    score = models.IntegerField()
+    rebounds = models.IntegerField()
+    steals = models.IntegerField()
+    turnovers = models.IntegerField()
+    fouls = models.IntegerField()
+    shotAttempts = models.IntegerField()
+
+    def __str__(self):
+        return str(self.game) + " - " + str(self.player)
+
+
+    

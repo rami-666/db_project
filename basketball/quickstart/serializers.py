@@ -6,9 +6,11 @@ Conference,
 Series, 
 Division, 
 Stadium, 
+Coach,
 Team, 
 Player, 
-Game
+Game,
+Game_Player,
 )  #add models here 
 
 
@@ -38,10 +40,15 @@ class StadiumSerializer(serializers.ModelSerializer):
         model = Stadium
         fields = ["location", "name", "capacity"]
 
+class CoachSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coach
+        fields = ["name", "position", "age", "yearsOfCoaching", "university", "nationality"]
+
 class TeamSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Team
-        fields = ["inDivision", "name", "titlesWon", "gamesWon", "gamesLost", "dateFounded", "fans", "sponsors", "logo", "hasStadium"] #missing coach field
+        fields = ["inDivision", "name", "titlesWon", "gamesWon", "gamesLost", "dateFounded", "fans", "sponsors", "logo", "hasStadium", "coach"]
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -54,6 +61,11 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ["date", "winner", "mvp", "inSeries", "gameNumber", "highlights", "home", "away", "homeScore", "homeRebounds", "homeSteals", "homeTurnovers", "homeTimeouts", "homeFouls", "homeShotAttempts", "awayScore", "awayRebounds", "awaySteals", "awayTurnovers", "awayTimeouts", "awayFouls", "awayShotAttempts"]
+
+class Game_PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game_Player
+        fields = ["game", "player", "score", "rebounds", "steals", "turnovers", "fouls", "shotAttempts"]
 
 
 

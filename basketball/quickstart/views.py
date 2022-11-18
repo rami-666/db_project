@@ -10,9 +10,11 @@ Conference,
 Series, 
 Division, 
 Stadium, 
+Coach,
 Team, 
 Player,
 Game,
+Game_Player,
 )  
 from .serializers import (      #add  seiralizers here
 PlayoffSerializer, 
@@ -20,9 +22,11 @@ ConferenceSerializer,
 SeriesSerializer, 
 DivisionSerializer, 
 StadiumSerializer, 
+CoachSerializer,
 TeamSerializer, 
 PlayerSerializer,
 GameSerializer,
+Game_PlayerSerializer,
 )  
 
 
@@ -225,7 +229,7 @@ class DivisionApiView(APIView):
             'forConference': request.data.get('forConference'),
             'name': request.data.get('name')
         }
-        serializer = SeriesSerializer(data=data)
+        serializer = DivisionSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -277,7 +281,61 @@ class StadiumApiView(APIView):
             'name': request.data.get('name'),
             'capacity': request.data.get('capacity')
         }
-        serializer = SeriesSerializer(data=data)
+        serializer = StadiumSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CoachApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+        # print(request.META)
+
+        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
+        #     playoffs = Playoff.objects.all()
+        # else:
+        #     year = request.META.get("HTTP_YEAR")
+        #     month = request.META.get("HTTP_MONTH")
+        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
+
+        coach = Coach.objects.all()
+
+        serializer = CoachSerializer(coach, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+        # response["Access-Control-Allow-Origin"] = "*"
+        # response["Access-Control-Allow-Methods"] = "GET, POST"
+        # response["Access-Control-Max-Age"] = "1000"
+        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
+
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'name': request.data.get('name'),
+            'position': request.data.get('position'),
+            'age': request.data.get('age'),
+            'yearsOfCoaching': request.data.get('yearsOfCoaching'),
+            'university': request.data.get('university'),
+            'nationality': request.data.get('nationality')
+        }
+        serializer = CoachSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -329,16 +387,16 @@ class TeamApiView(APIView):
             'inDivision': request.data.get('inDivision'),
             'name': request.data.get('name'),
             'titlesWon': request.data.get('titlesWon'),
-            'gamesWon': request.data.get('capacity'),
-            'gamesLost': request.data.get('titlesLost'),
+            'gamesWon': request.data.get('gamesWon'),
+            'gamesLost': request.data.get('gamesLost'),
             'dateFounded': request.data.get('dateFounded'),
             'fans': request.data.get('fans'),
             'sponsors': request.data.get('sponsors'),
             'logo': request.data.get('logo'),
             'hasStadium': request.data.get('hasStadium'),
-            #missing coach
+            'coach': request.data.get('coach'),
         }
-        serializer = SeriesSerializer(data=data)
+        serializer = TeamSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -474,6 +532,64 @@ class GameApiView(APIView):
             'awayShotAttempts': request.data.get('awayShotAttempts'),
         }
         serializer = GameSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Game_PlayerApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+        # print(request.META)
+
+        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
+        #     playoffs = Playoff.objects.all()
+        # else:
+        #     year = request.META.get("HTTP_YEAR")
+        #     month = request.META.get("HTTP_MONTH")
+        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
+
+        game_player = Game_Player.objects.all()
+
+        serializer = Game_PlayerSerializer(game_player, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+        # response["Access-Control-Allow-Origin"] = "*"
+        # response["Access-Control-Allow-Methods"] = "GET, POST"
+        # response["Access-Control-Max-Age"] = "1000"
+        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
+
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'game': request.data.get('game'),
+            'player': request.data.get('player'),
+            'score': request.data.get('score'),
+            'rebounds': request.data.get('rebounds'),
+            'steals': request.data.get('steals'),
+            'turnovers': request.data.get('turnovers'),
+            'fouls': request.data.get('fouls'),
+            'shotAttempts': request.data.get('shotAttempts'),
+            
+        }
+        serializer = Game_PlayerSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
