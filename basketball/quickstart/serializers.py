@@ -7,11 +7,14 @@ Series,
 Division, 
 Stadium, 
 Coach,
-Team, 
+Team,
+Team_Coach, 
 Player, 
+Team_Player,
 Game,
 Game_Player,
 Scout,
+Team_Scout,
 Referee,
 Game_Referee
 )  #add models here 
@@ -51,13 +54,24 @@ class CoachSerializer(serializers.ModelSerializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Team
-        fields = ["inDivision", "name", "titlesWon", "gamesWon", "gamesLost", "dateFounded", "fans", "sponsors", "logo", "hasStadium", "coach"]
+        fields = ["inDivision", "name", "titlesWon", "gamesWon", "gamesLost", "dateFounded", "fans", "sponsors", "logo", "hasStadium"]
+
+
+class Team_CoachSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Team_Coach
+        fields = ["team", "coach", "date"]
 
 
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ["inTeam", "fullName", "position", "age", "nationality", "university", "height", "weight", "agent", "pointsScored", "rebounds", "steals", "turnovers"]
+        fields = ["fullName", "position", "age", "nationality", "university", "height", "weight", "agent", "pointsScored", "rebounds", "steals", "turnovers"]
+
+class Team_PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team_Player
+        fields = ["team", "player", "date"]
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -74,7 +88,13 @@ class Game_PlayerSerializer(serializers.ModelSerializer):
 class ScoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scout
-        fields = ["name", "university", "forTeam"]
+        fields = ["name", "university"]
+
+
+class Team_ScoutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team_Scout
+        fields = ["team", "scout", "date"]
 
 
 class RefereeSerializer(serializers.ModelSerializer):

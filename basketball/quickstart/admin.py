@@ -7,10 +7,13 @@ Division,
 Stadium,
 Coach,
 Team, 
+Team_Coach,
 Player,
+Team_Player,
 Game,
 Game_Player,
 Scout,
+Team_Scout,
 Referee,
 Game_Referee
 ) 
@@ -31,7 +34,9 @@ class CoachAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Team)
+admin.site.register(Team_Coach)
 admin.site.register(Player)
+admin.site.register(Team_Player)
 # admin.site.register(Game)
 
 @admin.register(Game)
@@ -40,5 +45,6 @@ class GameAdmin(admin.ModelAdmin):
 
 admin.site.register(Game_Player)
 admin.site.register(Scout)
+admin.site.register(Team_Scout)
 admin.site.register(Referee)
 admin.site.register(Game_Referee)

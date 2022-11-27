@@ -63,15 +63,21 @@ class Team(models.Model):
     sponsors = models.IntegerField()
     logo  = models.CharField(max_length=1000)
     hasStadium = models.ForeignKey(Stadium, on_delete= models.DO_NOTHING)
-    coach = models.ForeignKey(Coach, on_delete= models.DO_NOTHING, null=True)
-
-    
+    # coach = models.ForeignKey(Coach, on_delete= models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.name
 
+class Team_Coach(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    coach = models.ForeignKey(Coach, on_delete=models.DO_NOTHING)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.team) + " : " + str(self.coach)
+
 class Player(models.Model):
-    inTeam = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    # inTeam = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
     fullName = models.CharField(max_length=100)
     position = models.CharField(max_length=10)
     age = models.IntegerField()
@@ -88,6 +94,13 @@ class Player(models.Model):
     def __str__(self):
         return self.fullName
 
+class Team_Player(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    player = models.ForeignKey(Player, on_delete=models.DO_NOTHING)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.team) + " " + str(self.player)
 
 class Game(models.Model):
     date = models.DateField()
@@ -134,11 +147,18 @@ class Game_Player(models.Model):
 class Scout(models.Model):
     name = models.CharField(max_length=100)
     university = models.CharField(max_length=100)
-    forTeam = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    # forTeam = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name
 
+class Team_Scout(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
+    scout = models.ForeignKey(Scout, on_delete=models.DO_NOTHING)
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.team) + " : " + str(self.scout)
 
 class Referee(models.Model):
     name = models.CharField(max_length=100)

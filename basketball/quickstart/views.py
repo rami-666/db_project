@@ -12,10 +12,13 @@ Division,
 Stadium, 
 Coach,
 Team, 
+Team_Coach,
 Player,
+Team_Player,
 Game,
 Game_Player,
 Scout,
+Team_Scout,
 Referee,
 Game_Referee
 )  
@@ -27,10 +30,13 @@ DivisionSerializer,
 StadiumSerializer, 
 CoachSerializer,
 TeamSerializer, 
+Team_CoachSerializer,
 PlayerSerializer,
+Team_PlayerSerializer,
 GameSerializer,
 Game_PlayerSerializer,
 ScoutSerializer,
+Team_ScoutSerializer,
 RefereeSerializer,
 Game_RefereeSerializer
 )  
@@ -48,25 +54,13 @@ class PlayoffApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         playoffs = Playoff.objects.all()
 
         serializer = PlayoffSerializer(playoffs, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -100,25 +94,13 @@ class ConferenceApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         conferences = Conference.objects.all()
 
         serializer = ConferenceSerializer(conferences, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -152,25 +134,13 @@ class SeriesApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         series = Series.objects.all()
 
         serializer = SeriesSerializer(series, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -203,25 +173,13 @@ class DivisionApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         division = Division.objects.all()
 
         serializer = DivisionSerializer(division, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -254,25 +212,13 @@ class StadiumApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         stadium = Stadium.objects.all()
 
         serializer = StadiumSerializer(stadium, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -305,25 +251,13 @@ class CoachApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         coach = Coach.objects.all()
 
         serializer = CoachSerializer(coach, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -361,25 +295,13 @@ class TeamApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         team = Team.objects.all()
 
         serializer = TeamSerializer(team, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -400,9 +322,48 @@ class TeamApiView(APIView):
             'sponsors': request.data.get('sponsors'),
             'logo': request.data.get('logo'),
             'hasStadium': request.data.get('hasStadium'),
-            'coach': request.data.get('coach'),
+            # 'coach': request.data.get('coach'),
         }
         serializer = TeamSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Team_CoachApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+ 
+        team_coach = Team_Coach.objects.all()
+
+        serializer = Team_CoachSerializer(team_coach, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+ 
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'team': request.data.get('team'),
+            'coach': request.data.get('coach'),
+            'date': request.data.get('date'),
+        }
+        serializer = Team_CoachSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -422,25 +383,13 @@ class PlayerApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         player = Player.objects.all()
 
         serializer = PlayerSerializer(player, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -451,7 +400,7 @@ class PlayerApiView(APIView):
         '''
         print(request.data)
         data = {
-            'inTeam': request.data.get('inTeam'),
+            # 'inTeam': request.data.get('inTeam'),
             'fullName': request.data.get('fullName'),
             'position': request.data.get('position'),
             'age': request.data.get('age'),
@@ -472,6 +421,45 @@ class PlayerApiView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class Team_PlayerApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+ 
+        team_player = Team_Player.objects.all()
+
+        serializer = Team_PlayerSerializer(team_player, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+ 
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'team': request.data.get('team'),
+            'player': request.data.get('player'),
+            'date': request.data.get('date'),
+        }
+        serializer = Team_PlayerSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class GameApiView(APIView):
@@ -485,25 +473,13 @@ class GameApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         game = Game.objects.all()
 
         serializer = GameSerializer(game, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -556,25 +532,13 @@ class Game_PlayerApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         game_player = Game_Player.objects.all()
 
         serializer = Game_PlayerSerializer(game_player, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -613,25 +577,13 @@ class ScoutApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         scout = Scout.objects.all()
 
         serializer = ScoutSerializer(scout, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -644,9 +596,49 @@ class ScoutApiView(APIView):
         data = {
             'name': request.data.get('name'),
             'university': request.data.get('university'),
-            'forTeam': request.data.get('forTeam'),
+            # 'forTeam': request.data.get('forTeam'),
         }
         serializer = ScoutSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Team_ScoutApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+ 
+        team_scout = Team_Scout.objects.all()
+
+        serializer = Team_ScoutSerializer(team_scout, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+ 
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'team': request.data.get('team'),
+            'scout': request.data.get('scout'),
+            'date': request.data.get('date'),
+        }
+        serializer = Team_ScoutSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -665,25 +657,13 @@ class RefereeApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         referee = Referee.objects.all()
 
         serializer = RefereeSerializer(referee, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
@@ -716,25 +696,13 @@ class Game_RefereeApiView(APIView):
         '''
         List all the monthly sales of the department
         '''
-        # print(request.META)
-
-        # if request.META.get("HTTP_YEAR") is None or request.META.get("HTTP_MONTH") is None:
-        #     playoffs = Playoff.objects.all()
-        # else:
-        #     year = request.META.get("HTTP_YEAR")
-        #     month = request.META.get("HTTP_MONTH")
-        #     domestics = Domestic.objects.filter( date__month__gte=month, date__month__lt=str(int(month)+1), date__year__gte=year, date__year__lt=str(int(year)+1))
-
+ 
         game_referee = Game_Referee.objects.all()
 
         serializer = Game_RefereeSerializer(game_referee, many=True)
         response = Response(serializer.data, status=status.HTTP_200_OK)
 
-        # response["Access-Control-Allow-Origin"] = "*"
-        # response["Access-Control-Allow-Methods"] = "GET, POST"
-        # response["Access-Control-Max-Age"] = "1000"
-        # response["Access-Control-Allow-Headers"] = "year, month, Content-Type"
-
+ 
         return response
 
 
