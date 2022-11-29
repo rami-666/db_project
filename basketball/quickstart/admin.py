@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import (
+Season,
 Playoff, 
 Conference, 
 Series, 
@@ -18,9 +19,10 @@ Referee,
 Game_Referee
 ) 
 
-admin.site.site_header = "Techchain x jr.NBA"
+admin.site.site_header = "RJE x jr.NBA"
 
 # Register your models here.
+admin.site.register(Season)
 admin.site.register(Playoff)
 admin.site.register(Conference)
 admin.site.register(Series)

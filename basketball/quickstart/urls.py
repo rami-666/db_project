@@ -1,6 +1,7 @@
 from django.urls import re_path as url
 from django.urls import path, include
 from .views import (
+SeasonApiView,
 PlayoffApiView,
 ConferenceApiView,
 SeriesApiView,
@@ -20,6 +21,7 @@ Game_RefereeApiView
 )
 
 urlpatterns = [
+    path('season', SeasonApiView.as_view()),
     path('playoff', PlayoffApiView.as_view()),
     path('conference',ConferenceApiView.as_view()),
     path('series',SeriesApiView.as_view()),

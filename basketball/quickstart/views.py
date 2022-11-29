@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework import views
 from .models import (           #add models here
+Season,
 Playoff,
 Conference,
 Series, 
@@ -23,6 +24,7 @@ Referee,
 Game_Referee
 )  
 from .serializers import (      #add  seiralizers here
+SeasonSerializer,
 PlayoffSerializer, 
 ConferenceSerializer, 
 SeriesSerializer, 
@@ -43,6 +45,45 @@ Game_RefereeSerializer
 
 
 # Create your views here.
+class SeasonApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the monthly sales of the department
+        '''
+ 
+        season = Season.objects.all()
+
+        serializer = SeasonSerializer(season, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+ 
+        return response
+
+
+    # 2. Create
+    def post(self, request, *args, **kwargs):
+        '''
+        Create the Todo with given todo data
+        '''
+        print(request.data)
+        data = {
+            'year': request.data.get('year'),
+            'numberOfGames': request.data.get('numberOfGames')
+        }
+        serializer = SeasonSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class PlayoffApiView(APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
@@ -512,6 +553,7 @@ class GameApiView(APIView):
             'awayTimeouts': request.data.get('awayTimeouts'),
             'awayFouls': request.data.get('awayFouls'),
             'awayShotAttempts': request.data.get('awayShotAttempts'),
+            'inSeason': request.data.get('inSeason'),
         }
         serializer = GameSerializer(data=data)
         if serializer.is_valid():

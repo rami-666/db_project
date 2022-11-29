@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Season(models.Model):
+    year = models.IntegerField(unique = True)
+    numberOfGames = models.IntegerField()
+
+    def __str__(self):
+        return str(self.year)
+
+
+
 
 class Playoff(models.Model):
     season = models.IntegerField(unique=True)
@@ -125,6 +134,7 @@ class Game(models.Model):
     awayTimeouts = models.IntegerField()
     awayFouls = models.IntegerField()
     awayShotAttempts = models.IntegerField()
+    inSeason = models.ForeignKey(Season, on_delete=models.DO_NOTHING, null = True)
 
     def __str__(self):
         return str(self.home) + " vs. " + str(self.away)

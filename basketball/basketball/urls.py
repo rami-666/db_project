@@ -24,7 +24,7 @@ from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin-interface/logo/me_copy_Mq2LIDV.png', RedirectView.as_view(url=staticfiles_storage.url('me_copy_Mq2LIDV.png'))),
+    path('admin-interface/logo/flc_design2022112885556.png', RedirectView.as_view(url=staticfiles_storage.url('flc_design2022112885556.png'))),
     path('admin-interface/favicon/favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
     path('api-auth', include('rest_framework.urls')),
     path('quickstart/', include(todo_urls)),

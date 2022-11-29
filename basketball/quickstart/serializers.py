@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import (
+Season,
 Playoff,
 Conference,
 Series, 
@@ -20,6 +21,10 @@ Game_Referee
 )  #add models here 
 
 
+class SeasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Season
+        fields = "__all__"
 
 class PlayoffSerializer(serializers.ModelSerializer):
     class Meta:
@@ -77,7 +82,7 @@ class Team_PlayerSerializer(serializers.ModelSerializer):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ["date", "winner", "mvp", "inSeries", "gameNumber", "highlights", "home", "away", "homeScore", "homeRebounds", "homeSteals", "homeTurnovers", "homeTimeouts", "homeFouls", "homeShotAttempts", "awayScore", "awayRebounds", "awaySteals", "awayTurnovers", "awayTimeouts", "awayFouls", "awayShotAttempts"]
+        fields = ["date", "winner", "mvp", "inSeries", "gameNumber", "highlights", "home", "away", "homeScore", "homeRebounds", "homeSteals", "homeTurnovers", "homeTimeouts", "homeFouls", "homeShotAttempts", "awayScore", "awayRebounds", "awaySteals", "awayTurnovers", "awayTimeouts", "awayFouls", "awayShotAttempts", "inSeason"]
 
 class Game_PlayerSerializer(serializers.ModelSerializer):
     class Meta:
