@@ -18,11 +18,11 @@ from django.urls import path, include
 from quickstart import urls as todo_urls
 
 
-# from . import views
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='http://127.0.0.1:8000/admin/')),
     path('admin/', admin.site.urls),
     path('admin-interface/logo/flc_design2022112885556.png', RedirectView.as_view(url=staticfiles_storage.url('flc_design2022112885556.png'))),
     path('admin-interface/favicon/favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
