@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Season(models.Model):
-    year = models.IntegerField(unique = True)
+    year = models.CharField(max_length = 9,unique = True)
     numberOfGames = models.IntegerField()
 
     def __str__(self):
