@@ -71,7 +71,7 @@ class Team_CoachSerializer(serializers.ModelSerializer):
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ["fullName", "position", "age", "nationality", "university", "height", "weight", "agent", "pointsScored", "rebounds", "steals", "turnovers"]
+        fields = ["fullName", "position", "age", "nationality", "university", "height", "weight", "agent", "pointsScored", "rebounds", "steals", "turnovers", "image"]
 
 class Team_PlayerSerializer(serializers.ModelSerializer):
     class Meta:

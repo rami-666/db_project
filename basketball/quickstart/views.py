@@ -454,6 +454,7 @@ class PlayerApiView(APIView):
             'rebounds': request.data.get('rebounds'),
             'steals': request.data.get('steals'),
             'turnovers': request.data.get('turnovers'),
+            'image': request.data.get('image')
         }
         serializer = PlayerSerializer(data=data)
         if serializer.is_valid():
