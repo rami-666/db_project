@@ -19,7 +19,9 @@ for sheet_name, data in df.items():
     print(payload)
 
     # Send a POST request to the Django backend with basic authentication
-    response = requests.post(django_url + sheet_name, json=payload, auth=(username, password))
+    for k in range(0, len(payload)):
+        response = requests.post(django_url + sheet_name, data=payload[k], auth=(username, password))
+
 
     # Print the response status code
-    print(response.status_code)
+        print(response.status_code)

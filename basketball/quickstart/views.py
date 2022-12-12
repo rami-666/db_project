@@ -440,6 +440,7 @@ class PlayerApiView(APIView):
         Create the Todo with given todo data
         '''
         print(request.data)
+        print("TYPE: " + str(type(request.data)))
         data = {
             # 'inTeam': request.data.get('inTeam'),
             'fullName': request.data.get('fullName'),
