@@ -62,7 +62,7 @@ class Coach(models.Model):
         return self.name
 
 class Team(models.Model):
-    inDivision = models.ForeignKey(Division, on_delete=models.DO_NOTHING)
+    inDivision = models.ForeignKey(Division, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     titlesWon = models.IntegerField()
     gamesWon = models.IntegerField()
