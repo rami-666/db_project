@@ -25,3 +25,5 @@ for sheet_name, data in df.items():
 
     # Print the response status code
         print(response.status_code)
+        if response.status_code == 400:
+            print(response.json())

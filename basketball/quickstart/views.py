@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -54,7 +55,7 @@ class SeasonApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         season = Season.objects.all()
@@ -93,7 +94,7 @@ class PlayoffApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         playoffs = Playoff.objects.all()
@@ -133,7 +134,7 @@ class ConferenceApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         conferences = Conference.objects.all()
@@ -173,7 +174,7 @@ class SeriesApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         series = Series.objects.all()
@@ -212,7 +213,7 @@ class DivisionApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         division = Division.objects.all()
@@ -251,7 +252,7 @@ class StadiumApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         stadium = Stadium.objects.all()
@@ -290,7 +291,7 @@ class CoachApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         coach = Coach.objects.all()
@@ -334,7 +335,7 @@ class TeamApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         team = Team.objects.all()
@@ -381,7 +382,7 @@ class Team_CoachApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         team_coach = Team_Coach.objects.all()
@@ -422,7 +423,7 @@ class PlayerApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         player = Player.objects.all()
@@ -473,7 +474,7 @@ class Team_PlayerApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         team_player = Team_Player.objects.all()
@@ -514,7 +515,7 @@ class GameApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         game = Game.objects.all()
@@ -574,7 +575,7 @@ class Game_PlayerApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         game_player = Game_Player.objects.all()
@@ -619,7 +620,7 @@ class ScoutApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         scout = Scout.objects.all()
@@ -659,7 +660,7 @@ class Team_ScoutApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         team_scout = Team_Scout.objects.all()
@@ -699,7 +700,7 @@ class RefereeApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         referee = Referee.objects.all()
@@ -738,7 +739,7 @@ class Game_RefereeApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
-        List all the monthly sales of the department
+         
         '''
  
         game_referee = Game_Referee.objects.all()
@@ -766,3 +767,31 @@ class Game_RefereeApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# test view
+
+class TeamFilterApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+         
+        '''
+
+        body = request.data.get("team")
+        teams = Team.objects.filter(name=body)
+
+        serializer = TeamSerializer(teams, many=True)
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+
+ 
+        return response
+
+
+    
